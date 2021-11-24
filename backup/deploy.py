@@ -1,13 +1,13 @@
 # Databricks notebook source
-#import os
-#os.environ['DATABRICKS_HOST'] = 'https://eastus2.azuredatabricks.net/'
-#os.environ['DATABRICKS_TOKEN'] = dbutils.notebook.entry_point.getDbutils().notebook().getContext().apiToken().getOrElse(None)
+import os
+os.environ['DATABRICKS_HOST'] = 'https://e2-demo-field-eng.cloud.databricks.com/'
+os.environ['DATABRICKS_TOKEN'] = dbutils.notebook.entry_point.getDbutils().notebook().getContext().apiToken().getOrElse(None)
 
 # COMMAND ----------
 
 new_cluster_config = """
 {
-    "spark_version": "7.3.x-scala2.12",
+    "spark_version": "9.1.x-scala2.12",
     "node_type_id": "i3.xlarge",
     "aws_attributes": {
       "availability": "ON_DEMAND"
@@ -16,16 +16,16 @@ new_cluster_config = """
 }
 """
 # Existing cluster ID where integration test will be executed
-existing_cluster_id = '0820-100141-forum325'
+existing_cluster_id = '0818-083401-china926'
 # Path to the notebook with the integration test
 notebook_path = '/test/unittest_model'
-repo_path = '/Repos/michael.shtelma@databricks.com/databricks_ml_demo'
+repo_path = '/Repos/stephan.wernz@databricks.com/databricks_ml_demo'
 
 
-repos_path_prefix='/Repos/michael.shtelma@databricks.com/databricks_ml_demo'
-git_url = 'https://github.com/mshtelma/databricks_ml_demo'
+repos_path_prefix='/Repos/stephan.wernz@databricks.com/databricks_ml_demo'
+git_url = 'https://github.com/stephanwer/databricks_ml_demo'
 provider = 'gitHub'
-branch = 'main'
+branch = 'master'
 
 # COMMAND ----------
 
