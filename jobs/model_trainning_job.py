@@ -30,7 +30,7 @@ experiment_id = env_experiment_id_dict['dev']
 
 DataProvider = LendingClubDataProvider(spark)
 X_train, X_test, Y_train, Y_test = DataProvider.run()
-# display(X_train)
+
 
 # COMMAND ----------
 

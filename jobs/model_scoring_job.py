@@ -7,7 +7,6 @@
 
 # COMMAND ----------
 
-# TODD: load right env for model registry param
 
 model_name = "ml-model-demo"
 env = 'dev'
@@ -19,8 +18,16 @@ DataProvider = LendingClubDataProvider(spark)
 
 # COMMAND ----------
 
-# TODO: change the scoring data to sth else
+production_model.production_model.source
+
+# COMMAND ----------
+
 
 _, X_test, _, _ = DataProvider.run()
-
+model = mlflow.pyfunc.load_model(production_model.source)
 df_predictions = model.predict(X_test)
+
+# COMMAND ----------
+
+sdf_predictions = spark.createDataFrame(pd.DataFrame(df_predictions), "prediction: int")
+display(sdf_predictions)
