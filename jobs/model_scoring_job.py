@@ -18,10 +18,6 @@ DataProvider = LendingClubDataProvider(spark)
 
 # COMMAND ----------
 
-production_model.production_model.source
-
-# COMMAND ----------
-
 
 _, X_test, _, _ = DataProvider.run()
 model = mlflow.pyfunc.load_model(production_model.source)

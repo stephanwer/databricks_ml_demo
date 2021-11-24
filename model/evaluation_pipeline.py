@@ -34,7 +34,7 @@ class LendingClubModelEvaluationPipeline():
             best_prod_roc = -1
         print('ROC (production models): ', np.mean(best_prod_roc))
 
-        if np.mean(best_cand_roc >= best_prod_roc) > 0.9:
+        if np.mean(best_cand_roc >= best_prod_roc*0.8) > 0.9:
             # deploy new model
             model_version = mlflow.register_model("runs:/" + best_cand_run_id + "/model", self.model_name)
             time.sleep(5)
@@ -47,6 +47,7 @@ class LendingClubModelEvaluationPipeline():
 
     @timed(logger)
     def get_best_model(self, run_ids, X, Y):
+        print(run_ids)
         best_roc = -1
         best_run_id = None
         for run_id in run_ids:
@@ -60,6 +61,7 @@ class LendingClubModelEvaluationPipeline():
     def get_candidate_models(self):
         spark_df = self.spark.read.format("mlflow-experiment").load(str(self.experimentID))
         pdf = spark_df.where("tags.candidate='true'").select("run_id").toPandas()
+        print(pdf)
         return pdf['run_id'].values
 
     @timed(logger)
